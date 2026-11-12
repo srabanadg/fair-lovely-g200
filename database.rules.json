@@ -1,0 +1,48 @@
+{
+  "rules": {
+    "sessions": {
+      "gdba-fair-lovely-g200-2026": {
+        "control": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid === 'REPLACE_WITH_YOUR_FIREBASE_GOOGLE_UID'",
+          "mode": {
+            ".validate": "newData.isString() && (newData.val() === 'waiting' || newData.val() === 'cloud' || newData.val() === 'before' || newData.val() === 'after' || newData.val() === 'team' || newData.val() === 'rating')"
+          }
+        },
+        "cloud": {
+          ".read": "auth != null",
+          "$voter": {
+            ".write": "auth != null && (auth.uid === $voter || auth.uid === 'REPLACE_WITH_YOUR_FIREBASE_GOOGLE_UID') && root.child('sessions/gdba-fair-lovely-g200-2026/control/mode').val() === 'cloud' && root.child('sessions/gdba-fair-lovely-g200-2026/control/visibility/1').val() !== false",
+            ".validate": "newData.hasChildren(['a','b','c']) && newData.child('a').isString() && newData.child('a').val().length <= 60 && newData.child('b').isString() && newData.child('b').val().length <= 60 && newData.child('c').isString() && newData.child('c').val().length <= 60"
+          },
+          ".write": "auth != null && auth.uid === 'REPLACE_WITH_YOUR_FIREBASE_GOOGLE_UID'"
+        },
+        "votes": {
+          ".read": "auth != null",
+          "$round": {
+            ".write": "auth != null && auth.uid === 'REPLACE_WITH_YOUR_FIREBASE_GOOGLE_UID'",
+            "$voter": {
+              ".write": "auth != null && auth.uid === $voter && $round.matches(/^(before|after)$/) && root.child('sessions/gdba-fair-lovely-g200-2026/control/mode').val() === $round && root.child('sessions/gdba-fair-lovely-g200-2026/control/visibility/2').val() !== false && newData.isString() && (newData.val() === 'Yes' || newData.val() === 'No' || newData.val() === 'Undecided')"
+            }
+          },
+          ".write": "auth != null && auth.uid === 'REPLACE_WITH_YOUR_FIREBASE_GOOGLE_UID'"
+        },
+        "teams": {
+          ".read": "auth != null",
+          "$team": {
+            ".write": "auth != null && $team.matches(/^[1-5]$/) && root.child('sessions/gdba-fair-lovely-g200-2026/control/mode').val() === 'team' && root.child('sessions/gdba-fair-lovely-g200-2026/control/visibility/7').val() !== false && newData.exists() && ((!data.exists() && newData.child('ownerUid').val() === auth.uid) || (data.exists() && data.child('ownerUid').val() === auth.uid && newData.child('ownerUid').val() === auth.uid))",
+            ".validate": "newData.hasChildren(['ownerUid','audience','position','proof','scene1','scene2','scene3','updatedAt']) && newData.child('ownerUid').isString() && newData.child('updatedAt').isNumber() && newData.child('position').isString() && newData.child('position').val().length <= 2000 && newData.child('audience').isString() && newData.child('audience').val().length <= 2000 && newData.child('proof').isString() && newData.child('proof').val().length <= 2000"
+          },
+          ".write": "auth != null && auth.uid === 'REPLACE_WITH_YOUR_FIREBASE_GOOGLE_UID'"
+        },
+        "ratings": {
+          ".read": "auth != null",
+          "$voter": {
+            ".write": "auth != null && auth.uid === $voter && root.child('sessions/gdba-fair-lovely-g200-2026/control/mode').val() === 'rating' && root.child('sessions/gdba-fair-lovely-g200-2026/control/visibility/7').val() !== false && newData.hasChildren(['ownTeam','scores','updatedAt']) && newData.child('ownTeam').isNumber() && newData.child('ownTeam').val() >= 1 && newData.child('ownTeam').val() <= 5 && newData.child('updatedAt').isNumber()"
+          },
+          ".write": "auth != null && auth.uid === 'REPLACE_WITH_YOUR_FIREBASE_GOOGLE_UID'"
+        }
+      }
+    }
+  }
+}
