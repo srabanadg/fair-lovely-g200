@@ -2,6 +2,13 @@
 
 This is a separate copy of the original studio. The original GitHub repository is unchanged.
 
+## Studio links
+
+- **[Instructor Studio](https://srabanadg.github.io/fair-lovely-g200/)**
+- **[Student Studio](https://srabanadg.github.io/fair-lovely-g200/student.html)**
+
+Both links are published from this repository with GitHub Pages. Share only the **Student Studio** link with students. Instructor controls require authorized Firebase sign-in.
+
 ## What's new
 - Instructor retains all seven activities. Activities 3–6 default to hidden in the student interface, and instructor can toggle visibility.
 - Activity 1: live student word cloud (up to 3 trends, anonymous to instructor).
