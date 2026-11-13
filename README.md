@@ -30,3 +30,4 @@ Both links are published from this repository with GitHub Pages. Share only the 
 - Peer ratings are anonymous to instructor but team choice is self-reported; they are not intended for graded assessment.
 - Visibility controls hide activity access; the instructor still has all seven pages. Public student authentication does not prevent visitors with the URL from signing in.
 - Notes are saved locally to the instructor's browser, not Firebase. Use Export notes to back them up.
+- 
